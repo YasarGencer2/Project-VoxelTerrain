@@ -377,6 +377,52 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &704616668
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 704616670}
+  - component: {fileID: 704616669}
+  m_Layer: 0
+  m_Name: DataHelper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &704616669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704616668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f183a80d12fb444fb9d82a752ae6d06e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultChunkData: {fileID: 11400000, guid: 67b8373e926474e1eb13bb10839abc0e, type: 2}
+  voxelObjectDataSet: {fileID: 11400000, guid: 30c1f904da8584f9cb39f15880306d34, type: 2}
+--- !u!4 &704616670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704616668}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,8 +501,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c823f9ddf7443e389ddef2eeec1791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultChunkData: {fileID: 11400000, guid: 67b8373e926474e1eb13bb10839abc0e, type: 2}
-  cubePrefab: {fileID: 2150036599590300088, guid: 239fe7a4452734402b10e660e019f7c7, type: 3}
+  chunksX: 2
+  chunksZ: 2
 --- !u!4 &1092014951
 Transform:
   m_ObjectHideFlags: 0
@@ -480,3 +526,4 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1092014951}
+  - {fileID: 704616670}

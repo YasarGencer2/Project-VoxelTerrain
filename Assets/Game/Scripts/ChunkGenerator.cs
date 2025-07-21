@@ -1,14 +1,12 @@
 using UnityEngine;
 
 public class ChunkGenerator
-{
-    public GameObject CubePrefab;
-
+{ 
+    DefaultChunkData chunkData = DataHelper.Instance.DefaultChunkData;
     public Chunk GeneratePerlinChunk(Vector2 offset)
     {
-        var data = TerrainGenerator.Instance.DefaultChunkData;
-        Chunk chunk = new Chunk(data.Width, data.Height, data.Depth);
-        chunk.voxels = PerlinGenerator.GeneratePerlinTerrain(data.Width, data.Height, data.Depth, data.NoiseScale, data.HeightMultiplier, offset);
+        Chunk chunk = new Chunk(chunkData.Width, chunkData.Height, chunkData.Depth);
+        chunk.voxels = PerlinGenerator.GeneratePerlinTerrain(chunkData.Width, chunkData.Height, chunkData.Depth, chunkData.NoiseScale, chunkData.HeightMultiplier, offset);
         return chunk;
     }
 

@@ -7,7 +7,7 @@ public class Chunk
     public readonly int depth;
     public Transform Parent;
 
-    public bool[,,] voxels;
+    public Voxel[,,] voxels;
 
     public Chunk(int width, int height, int depth)
     {
@@ -15,20 +15,28 @@ public class Chunk
         this.height = height;
         this.depth = depth;
 
-        voxels = new bool[width, height, depth];
+        voxels = new Voxel[width, height, depth];
+
+        for (int x = 0; x < width; x++)
+            for (int y = 0; y < height; y++)
+                for (int z = 0; z < depth; z++)
+                    voxels[x, y, z] = new Voxel(new Vector3Int(x, y, z));
     }
 
-    public void SetVoxel(int x, int y, int z, bool value)
+    public void SetVoxel(int x, int y, int z, bool isActive, VoxelType type)
     {
         if (InBounds(x, y, z))
-            voxels[x, y, z] = value;
+        {
+            voxels[x, y, z].IsActive = isActive;
+            voxels[x, y, z].Type = type;
+        }
     }
 
-    public bool GetVoxel(int x, int y, int z)
+    public Voxel GetVoxel(int x, int y, int z)
     {
         if (InBounds(x, y, z))
             return voxels[x, y, z];
-        return false;
+        return null;
     }
 
     bool InBounds(int x, int y, int z)
@@ -37,11 +45,13 @@ public class Chunk
                y >= 0 && y < height &&
                z >= 0 && z < depth;
     }
+
     public void CreateVoxel(int x, int y, int z)
     {
-        if (GetVoxel(x, y, z) == false)
+        Voxel voxel = GetVoxel(x, y, z);
+        if (voxel == null || !voxel.IsActive)
             return;
-        GameObject voxel = Object.Instantiate(TerrainGenerator.Instance.CubePrefab, Parent);
-        voxel.transform.localPosition = new Vector3(x, y, z); 
+        GameObject voxelGO = Object.Instantiate(DataHelper.Instance.VoxelObjectDataSet.GetVoxelObjectData(voxel.Type).Prefab, Parent);
+        voxelGO.transform.localPosition = new Vector3(x, y, z);
     }
 }

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public static class PerlinGenerator
 {
-    public static bool[,,] GeneratePerlinTerrain(int width, int height, int depth, float noiseScale, float heightMultiplier, Vector2 offset)
+    public static Voxel[,,] GeneratePerlinTerrain(int width, int height, int depth, float noiseScale, float heightMultiplier, Vector2 offset)
     {
-        bool[,,] voxels = new bool[width, height, depth];
+        Voxel[,,] voxels = new Voxel[width, height, depth];
 
         for (int x = 0; x < width; x++)
             for (int z = 0; z < depth; z++)
@@ -15,9 +15,22 @@ public static class PerlinGenerator
                 int columnHeight = Mathf.FloorToInt(noise * heightMultiplier);
 
                 for (int y = 0; y < height; y++)
-                    voxels[x, y, z] = y <= columnHeight;
+                {
+                    bool isActive = y <= columnHeight;
+                    VoxelType type = VoxelType.Air;
+
+                    if (isActive)
+                    {
+                        if (y == columnHeight) type = VoxelType.Grass;
+                        else type = VoxelType.Dirt;
+                    }
+
+                    voxels[x, y, z] = new Voxel(new Vector3Int(x, y, z), isActive, type);
+                }
             }
 
         return voxels;
     }
+
+
 }
