@@ -4,7 +4,8 @@ namespace VoxelTerrain
 {
     public class ChunkGenerator
     {
-        DefaultChunkData chunkData = DataHelper.Instance.DefaultChunkData;
+        VoxelChunkData chunkData => DataHelper.Instance.VoxelChunkData;
+        VoxelTerrainData terrainData => DataHelper.Instance.VoxelTerrainData;
 
 
         public Chunk GeneratePerlinChunk(Vector2 offset)

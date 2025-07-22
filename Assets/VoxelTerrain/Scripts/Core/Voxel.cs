@@ -19,7 +19,7 @@ namespace VoxelTerrain
         }
         void InitializeVertices()
         {
-            var size = DataHelper.Instance.DefaultChunkData.VoxelSize;
+            var size = DataHelper.Instance.VoxelChunkData.VoxelSize;
             Vertices = new Vector3[8];
             Vertices[0] = new Vector3(0, 0, 0) * size;
             Vertices[1] = new Vector3(1, 0, 0) * size;

@@ -85,7 +85,7 @@ namespace VoxelTerrain
 
         public void AddVoxelMesh(Voxel voxel)
         {
-            Vector3 basePos = (Vector3)voxel.Position * DataHelper.Instance.DefaultChunkData.VoxelSize;
+            Vector3 basePos = (Vector3)voxel.Position * DataHelper.Instance.VoxelChunkData.VoxelSize;
             int vCount = vertices.Count;
 
             for (int face = 0; face < 6; face++)

@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace VoxelTerrain
 {
-    [CreateAssetMenu(fileName = "DefaultChunkData", menuName = "VoxelTerrain/DefaultChunkData", order = 1)]
-    public class DefaultChunkData : ScriptableObject
+    [CreateAssetMenu(fileName = "VoxelChunkData", menuName = "VoxelTerrain/VoxelChunkData", order = 1)]
+    public class VoxelChunkData : ScriptableObject
     {
         public int Width = 16;
         public int Height = 16;

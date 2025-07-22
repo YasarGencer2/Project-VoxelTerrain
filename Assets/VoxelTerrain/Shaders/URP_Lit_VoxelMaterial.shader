@@ -1,4 +1,4 @@
-Shader "Custom/URP_Lit_VertexColor"
+Shader "Custom/URP_Lit_VoxelMaterial"
 {
     Properties
     {

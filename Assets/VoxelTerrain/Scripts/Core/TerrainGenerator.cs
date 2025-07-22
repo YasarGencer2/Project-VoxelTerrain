@@ -6,11 +6,10 @@ namespace VoxelTerrain
     public class TerrainGenerator : MonoBehaviour
     {
         public static TerrainGenerator Instance;
-        DefaultChunkData chunkData => DataHelper.Instance.DefaultChunkData;
+        VoxelChunkData chunkData => DataHelper.Instance.VoxelChunkData;
+        VoxelTerrainData terrainData => DataHelper.Instance.VoxelTerrainData;
 
         public ChunkGenerator Generator { get; private set; }
-        [SerializeField] int chunksX = 2;
-        [SerializeField] int chunksZ = 2;
         public Dictionary<Vector2Int, Chunk> Chunks = new();
 
         void Awake()
@@ -32,9 +31,9 @@ namespace VoxelTerrain
         {
             Chunks.Clear();
             Generator = new ChunkGenerator();
-            var size = DataHelper.Instance.DefaultChunkData.VoxelSize;
-            for (int cx = 0; cx < chunksX; cx++)
-                for (int cz = 0; cz < chunksZ; cz++)
+            var size = DataHelper.Instance.VoxelChunkData.VoxelSize;
+            for (int cx = 0; cx < terrainData.ChunkCountX; cx++)
+                for (int cz = 0; cz < terrainData.ChunkCountY; cz++)
                 {
                     Vector2 offset = chunkData.NoiseOffset + new Vector2(cx * chunkData.Width, cz * chunkData.Depth) + new Vector2(chunkData.Seed, chunkData.Seed) * chunkData.NoiseScale;
                     Vector3 worldPos = new Vector3(cx * chunkData.Width, 0, cz * chunkData.Depth) * size;
