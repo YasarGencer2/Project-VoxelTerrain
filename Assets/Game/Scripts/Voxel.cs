@@ -17,15 +17,16 @@ public class Voxel
     }
     void InitializeVertices()
     {
+        var size = DataHelper.Instance.DefaultChunkData.VoxelSize;
         Vertices = new Vector3[8];
-        Vertices[0] = new Vector3(0, 0, 0);
-        Vertices[1] = new Vector3(1, 0, 0);
-        Vertices[2] = new Vector3(1, 1, 0);
-        Vertices[3] = new Vector3(0, 1, 0);
-        Vertices[4] = new Vector3(0, 0, 1);
-        Vertices[5] = new Vector3(1, 0, 1);
-        Vertices[6] = new Vector3(1, 1, 1);
-        Vertices[7] = new Vector3(0, 1, 1);
+        Vertices[0] = new Vector3(0, 0, 0) * size;
+        Vertices[1] = new Vector3(1, 0, 0) * size;
+        Vertices[2] = new Vector3(1, 1, 0) * size;
+        Vertices[3] = new Vector3(0, 1, 0) * size;
+        Vertices[4] = new Vector3(0, 0, 1) * size;
+        Vertices[5] = new Vector3(1, 0, 1) * size;
+        Vertices[6] = new Vector3(1, 1, 1) * size;
+        Vertices[7] = new Vector3(0, 1, 1) * size;
     }
 }
 public enum VoxelType

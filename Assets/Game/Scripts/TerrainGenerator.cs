@@ -18,12 +18,13 @@ public class TerrainGenerator : MonoBehaviour
     void Start()
     {
         Generator = new ChunkGenerator();
+        var size = DataHelper.Instance.DefaultChunkData.VoxelSize;
 
         for (int cx = 0; cx < chunksX; cx++)
             for (int cz = 0; cz < chunksZ; cz++)
             {
-                Vector2 offset = chunkData.NoiseOffset + new Vector2(cx * chunkData.Width, cz * chunkData.Depth);
-                Vector3 worldPos = new Vector3(cx * chunkData.Width, 0, cz * chunkData.Depth);
+                Vector2 offset = chunkData.NoiseOffset + new Vector2(cx * chunkData.Width, cz * chunkData.Depth) * size;
+                Vector3 worldPos = new Vector3(cx * chunkData.Width, 0, cz * chunkData.Depth) * size;
                 Chunk chunk = Generator.GeneratePerlinChunk(offset);
                 Vector2Int chunkCoord = new Vector2Int(cx, cz);
                 chunk.chunkCoord = chunkCoord;

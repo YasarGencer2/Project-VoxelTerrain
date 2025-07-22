@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -81,7 +82,7 @@ public class Chunk
 
     public void AddVoxelMesh(Voxel voxel)
     {
-        Vector3 basePos = voxel.Position;
+        Vector3 basePos = (Vector3)voxel.Position * DataHelper.Instance.DefaultChunkData.VoxelSize;
         int vCount = vertices.Count;
 
         for (int face = 0; face < 6; face++)
