@@ -15,8 +15,20 @@ public class TerrainGenerator : MonoBehaviour
     {
         Instance = this;
     }
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        { 
+            foreach (var item in Chunks)
+            {
+                Destroy(item.Value.GetMeshRender().gameObject);
+            }
+            Start();
+        }
+    }
     void Start()
     {
+        Chunks.Clear();
         Generator = new ChunkGenerator();
         var size = DataHelper.Instance.DefaultChunkData.VoxelSize;
 

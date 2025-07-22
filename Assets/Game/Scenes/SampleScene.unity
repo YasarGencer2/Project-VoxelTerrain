@@ -517,8 +517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c823f9ddf7443e389ddef2eeec1791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunksX: 40
-  chunksZ: 40
+  chunksX: 6
+  chunksZ: 6
 --- !u!4 &1092014951
 Transform:
   m_ObjectHideFlags: 0

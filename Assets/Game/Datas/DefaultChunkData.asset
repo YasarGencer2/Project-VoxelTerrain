@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea57c37337156460cb0d2b5d0488d0d4, type: 3}
   m_Name: DefaultChunkData
   m_EditorClassIdentifier: 
-  chunkWidth: 16
-  chunkHeight: 16
-  chunkDepth: 16
-  noiseScale: 0.1
-  heightMultiplier: 8
-  noiseOffset: {x: 0, y: 0}
+  Width: 16
+  Height: 16
+  Depth: 16
+  VoxelSize: 0.25
+  NoiseScale: 0.1
+  HeightMultiplier: 8
+  NoiseOffset: {x: 0.2, y: 0}

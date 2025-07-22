@@ -27,6 +27,8 @@ public class Chunk
 
     public void SetMeshFilter(MeshFilter mf) => meshFilter = mf;
     public void SetMeshRenderer(MeshRenderer mr) => meshRenderer = mr;
+    public MeshFilter GetMeshFilter() => meshFilter;
+    public MeshRenderer GetMeshRender() => meshRenderer;
 
     static readonly int[][] FaceTriangles = new int[][]
     {
