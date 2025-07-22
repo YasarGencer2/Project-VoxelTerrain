@@ -17,6 +17,8 @@ public class Chunk
     List<int> triangles = new();
     List<Vector2> uvs = new();
 
+    public Vector2Int chunkCoord;
+
 
     public void SetMeshFilter(MeshFilter mf) => meshFilter = mf;
     public void SetMeshRenderer(MeshRenderer mr) => meshRenderer = mr;
@@ -45,11 +47,10 @@ public class Chunk
                     voxels[x, y, z] = new Voxel(new Vector3Int(x, y, z));
     }
 
-    public void SetVoxel(int x, int y, int z, bool isActive, VoxelType type)
+    public void SetVoxel(int x, int y, int z, VoxelType type)
     {
         if (InBounds(x, y, z))
         {
-            voxels[x, y, z].IsActive = isActive;
             voxels[x, y, z].Type = type;
         }
     }
@@ -67,6 +68,13 @@ public class Chunk
                y >= 0 && y < height &&
                z >= 0 && z < depth;
     }
+    bool InBounds(Vector3Int pos)
+    {
+        return pos.x >= 0 && pos.x < width &&
+               pos.y >= 0 && pos.y < height &&
+               pos.z >= 0 && pos.z < depth;
+    }
+
     public void AddVoxelMesh(Voxel voxel)
     {
         Vector3 basePos = voxel.Position;
@@ -93,15 +101,21 @@ public class Chunk
             }
         }
     }
-    bool IsVoxelSolid(Vector3Int pos)
+    public bool IsVoxelSolid(Vector3Int pos)
     {
-        if (pos.x < 0 || pos.x >= width ||
-            pos.y < 0 || pos.y >= height ||
-            pos.z < 0 || pos.z >= depth)
-            return false;
+        if (InBounds(pos))
+            return voxels[pos.x, pos.y, pos.z].IsSolid;
 
-        return voxels[pos.x, pos.y, pos.z].IsSolid;
+        Vector3Int localPos = pos;
+        Vector2Int neighborChunkCoord = TerrainGenerator.Instance.Generator.GetNeighborChunkCoord(ref localPos, chunkCoord);
+        if (TerrainGenerator.Instance.Chunks.TryGetValue(neighborChunkCoord, out Chunk neighborChunk))
+        {
+            if (neighborChunk.InBounds(localPos))
+                return neighborChunk.voxels[localPos.x, localPos.y, localPos.z].IsSolid;
+        }
+        return false;
     }
+
 
     public void UpdateMesh()
     {

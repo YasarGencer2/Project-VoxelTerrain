@@ -25,7 +25,7 @@ public static class PerlinGenerator
                         else type = VoxelType.Dirt;
                     }
 
-                    voxels[x, y, z] = new Voxel(new Vector3Int(x, y, z), isActive, type);
+                    voxels[x, y, z] = new Voxel(new Vector3Int(x, y, z), type);
                 }
             }
 
