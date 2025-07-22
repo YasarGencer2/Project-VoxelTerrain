@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 513e1c8175fe04dca99945cd56d2614c, type: 3}
   m_Name: VoxelTerrainData
   m_EditorClassIdentifier: 
-  ChunkCountX: 16
-  ChunkCountY: 16
+  ChunkCountX: 12
+  ChunkCountY: 12
+  GrassHeight: 1
+  DirtHeight: 4
+  RenderDistance: 12

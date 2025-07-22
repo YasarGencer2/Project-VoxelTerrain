@@ -24,25 +24,67 @@ namespace VoxelTerrain
                 {
                     Destroy(item.Value.GetMeshRender().gameObject);
                 }
-                Start();
+                CreateTerrain();
             }
         }
         void Start()
         {
+            CreateTerrain();
+        }
+        void CreateTerrain()
+        {
             Chunks.Clear();
             Generator = new ChunkGenerator();
-            var size = DataHelper.Instance.VoxelChunkData.VoxelSize;
-            for (int cx = 0; cx < terrainData.ChunkCountX; cx++)
-                for (int cz = 0; cz < terrainData.ChunkCountY; cz++)
+            int startX = -terrainData.ChunkCountX / 2;
+            int startZ = -terrainData.ChunkCountY / 2;
+            int endX = startX * -1;
+            int endZ = startZ * -1;
+            for (int cx = startX; cx < endX; cx++)
+                for (int cz = startZ; cz < endZ; cz++)
                 {
-                    Vector2 offset = chunkData.NoiseOffset + new Vector2(cx * chunkData.Width, cz * chunkData.Depth) + new Vector2(chunkData.Seed, chunkData.Seed) * chunkData.NoiseScale;
-                    Vector3 worldPos = new Vector3(cx * chunkData.Width, 0, cz * chunkData.Depth) * size;
-                    Chunk chunk = Generator.GeneratePerlinChunk(offset);
-                    Vector2Int chunkCoord = new Vector2Int(cx, cz);
-                    chunk.chunkCoord = chunkCoord;
-                    Chunks.Add(chunkCoord, chunk);
-                    Generator.RenderChunk(chunk, transform, worldPos);
+                    LoadChunk(cx, cz);
                 }
+        }
+        public void LoadChunk(int x, int z)
+        {
+            Vector2Int chunkCoord = new Vector2Int(x, z);
+            if (Chunks.ContainsKey(chunkCoord))
+                return;
+            Vector3 worldPos = GetWorldPosition(chunkCoord);
+            Vector2 offset = chunkData.NoiseOffset + new Vector2(x * chunkData.Width, z * chunkData.Depth) + new Vector2(chunkData.Seed, chunkData.Seed) * chunkData.NoiseScale;
+            Chunk chunk = Generator.GeneratePerlinChunk(offset);
+            chunk.chunkCoord = chunkCoord;
+            Chunks.Add(chunkCoord, chunk);
+            Generator.RenderChunk(chunk, transform, worldPos);
+        }
+        public void UnloadChunk(int x, int z)
+        {
+            Vector2Int chunkCoord = new Vector2Int(x, z);
+            if (Chunks.TryGetValue(chunkCoord, out Chunk chunk))
+            {
+                Destroy(chunk.GetMeshRender().gameObject);
+                Chunks.Remove(chunkCoord);
+            }
+        }
+        public Vector3 GetWorldPosition(Vector2Int chunkCoord)
+        {
+            return new Vector3(chunkCoord.x * chunkData.Width, 0, chunkCoord.y * chunkData.Depth) * chunkData.VoxelSize;
+        }
+
+        public Vector2Int GetChunkIndex(Vector3 worldPos)
+        {
+            int x = Mathf.FloorToInt(worldPos.x / (chunkData.Width * chunkData.VoxelSize));
+            int z = Mathf.FloorToInt(worldPos.z / (chunkData.Depth * chunkData.VoxelSize));
+            return new Vector2Int(x, z);
+        }
+
+        public Chunk GetChunk(Vector2Int chunkCoord)
+        {
+            if (Chunks.TryGetValue(chunkCoord, out Chunk chunk))
+            {
+                return chunk;
+            }
+            return null;
         }
 
     }

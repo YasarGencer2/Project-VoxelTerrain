@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea57c37337156460cb0d2b5d0488d0d4, type: 3}
   m_Name: DefaultChunkData
   m_EditorClassIdentifier: 
-  Width: 16
-  Height: 32
-  Depth: 16
-  VoxelSize: 0.25
-  Seed: 0
-  NoiseScale: 0.1
-  HeightMultiplier: 16
+  Width: 32
+  Height: 33
+  Depth: 32
+  VoxelSize: 0.2
+  Seed: 12412345
+  NoiseScale: 0.025
+  HeightMultiplier: 32
   NoiseOffset: {x: 0, y: 0}

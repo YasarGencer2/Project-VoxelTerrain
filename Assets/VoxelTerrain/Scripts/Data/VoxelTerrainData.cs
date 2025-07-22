@@ -9,5 +9,7 @@ namespace VoxelTerrain
         public int ChunkCountY = 16;
         public int GrassHeight = 1;
         public int DirtHeight = 4;
+        public int LoadDistance = 5;
+        public int UnloadDistance => LoadDistance + 2;
     }
 }
