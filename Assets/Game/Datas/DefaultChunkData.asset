@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: DefaultChunkData
   m_EditorClassIdentifier: 
   Width: 16
-  Height: 16
+  Height: 32
   Depth: 16
   VoxelSize: 0.25
   NoiseScale: 0.1
-  HeightMultiplier: 8
+  HeightMultiplier: 32
   NoiseOffset: {x: 0.2, y: 0}
