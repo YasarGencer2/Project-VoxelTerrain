@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Voxel
@@ -12,6 +13,7 @@ public class Voxel
         Position = position;
         Type = type;
         InitializeVertices();
+        // Debug.Log($"Voxel created at {position} with type {type}");
     }
     void InitializeVertices()
     {

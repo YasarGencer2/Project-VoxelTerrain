@@ -29,6 +29,18 @@ public class VoxelObjectDataSet : ScriptableObject
         Debug.LogWarning($"Voxel object with type {type} not found.");
         return default;
     }
+    public Color GetColorByVoxelType(VoxelType type)
+    {
+        foreach (var voxelObject in VoxelObjects)
+        {
+            if (voxelObject.Type == type)
+            {
+                return voxelObject.Color;
+            }
+        }
+        Debug.LogWarning($"Color for voxel type {type} not found.");
+        return Color.white;  
+    }
 }
 [System.Serializable]
 public struct VoxelObjectData
@@ -36,11 +48,13 @@ public struct VoxelObjectData
     public string Name;
     public GameObject Prefab;
     public VoxelType Type;
+    public Color Color;
 
-    public VoxelObjectData(string name, GameObject prefab, VoxelType type)
+    public VoxelObjectData(string name, GameObject prefab, VoxelType type, Color color)
     {
         Name = name;
         Prefab = prefab;
         Type = type;
+        Color = color;
     }
 }

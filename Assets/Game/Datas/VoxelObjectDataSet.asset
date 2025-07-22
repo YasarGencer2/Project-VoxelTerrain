@@ -16,9 +16,12 @@ MonoBehaviour:
   - Name: Air
     Prefab: {fileID: 0}
     Type: 0
+    Color: {r: 1, g: 1, b: 1, a: 0}
   - Name: Dirt
     Prefab: {fileID: 2150036599590300088, guid: 239fe7a4452734402b10e660e019f7c7, type: 3}
     Type: 1
+    Color: {r: 1, g: 0.6834848, b: 0, a: 1}
   - Name: Grass
     Prefab: {fileID: 2150036599590300088, guid: e83d65e008cb04ca3b0baf6413528f50, type: 3}
     Type: 2
+    Color: {r: 0.14747167, g: 1, b: 0, a: 1}

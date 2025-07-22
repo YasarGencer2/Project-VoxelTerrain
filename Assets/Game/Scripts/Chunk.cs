@@ -17,6 +17,10 @@ public class Chunk
     List<int> triangles = new();
     List<Vector2> uvs = new();
 
+    List<Color> colors = new List<Color>();
+
+
+
     public Vector2Int chunkCoord;
 
 
@@ -98,6 +102,10 @@ public class Chunk
                 triangles.Add(vCount + 2);
 
                 vCount += 4;
+
+                var color = DataHelper.Instance.VoxelObjectDataSet.GetColorByVoxelType(voxel.Type);
+                for (int i = 0; i < 4; i++)
+                    colors.Add(color);
             }
         }
     }
@@ -122,13 +130,18 @@ public class Chunk
         mesh = new Mesh();
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
+        mesh.colors = colors.ToArray();
+        mesh.RecalculateNormals();
         mesh.RecalculateNormals();
         meshFilter.mesh = mesh;
+
 
         vertices.Clear();
         triangles.Clear();
         uvs.Clear();
+        colors.Clear();
     }
+
     Vector3Int GetDirection(int face)
     {
         return face switch
