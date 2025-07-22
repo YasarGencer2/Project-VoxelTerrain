@@ -75,7 +75,7 @@ public class Chunk
         for (int face = 0; face < 6; face++)
         {
             Vector3Int neighborPos = voxel.Position + GetDirection(face);
-            // if (!IsVoxelSolid(neighborPos))
+            if (!IsVoxelSolid(neighborPos))
             {
                 int[] faceVerts = FaceTriangles[face];
 
