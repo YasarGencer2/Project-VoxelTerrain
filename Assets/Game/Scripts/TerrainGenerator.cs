@@ -12,21 +12,19 @@ public class TerrainGenerator : MonoBehaviour
     void Awake()
     {
         Instance = this;
-    }
+    } 
     void Start()
     {
         Generator = new ChunkGenerator();
-
 
         for (int cx = 0; cx < chunksX; cx++)
             for (int cz = 0; cz < chunksZ; cz++)
             {
                 Vector2 offset = chunkData.NoiseOffset + new Vector2(cx * chunkData.Width, cz * chunkData.Depth);
-                GameObject chunkObj = new GameObject($"Chunk_{cx}_{cz}");
-                chunkObj.transform.position = new Vector3(cx * chunkData.Width, 0, cz * chunkData.Depth);
-                chunkObj.transform.parent = transform;
+                Vector3 worldPos = new Vector3(cx * chunkData.Width, 0, cz * chunkData.Depth);
 
-                Generator.RenderChunk(chunkObj.transform, offset);
+                Generator.RenderChunk(transform, offset, worldPos);
             }
     }
+
 }

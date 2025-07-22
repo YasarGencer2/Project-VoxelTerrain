@@ -8,6 +8,8 @@ public class DataHelper : MonoBehaviour
     public DefaultChunkData DefaultChunkData => defaultChunkData;
     [SerializeField] private VoxelObjectDataSet voxelObjectDataSet;
     public VoxelObjectDataSet VoxelObjectDataSet => voxelObjectDataSet;
+    [SerializeField] private Material defaultMaterial;
+    public Material DefaultMaterial => defaultMaterial;
     void Awake()
     {
         Instance = this;
