@@ -5,10 +5,9 @@ namespace VoxelTerrain
     {
         public static Voxel[,,] GeneratePerlinTerrain(int width, int height, int depth, float noiseScale, float heightMultiplier, Vector2 offset)
         {
+            var terrainData = DataHelper.Instance.VoxelTerrainData;
             Voxel[,,] voxels = new Voxel[width, height, depth];
             int minHeight = height / 4;
-
-
             for (int x = 0; x < width; x++)
                 for (int z = 0; z < depth; z++)
                 {
@@ -25,8 +24,10 @@ namespace VoxelTerrain
 
                         if (isActive)
                         {
-                            if (y == columnHeight) type = VoxelType.Grass;
-                            else type = VoxelType.Dirt;
+                            int surfaceY = columnHeight;
+                            if (y == surfaceY && y >= terrainData.GrassHeight) type = VoxelType.Grass;
+                            else if (y > surfaceY - terrainData.DirtHeight) type = VoxelType.Dirt;
+                            else type = VoxelType.Stone;
                         }
 
                         voxels[x, y, z] = new Voxel(new Vector3Int(x, y, z), type);
