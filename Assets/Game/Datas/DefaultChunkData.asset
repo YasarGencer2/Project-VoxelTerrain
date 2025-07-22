@@ -16,6 +16,7 @@ MonoBehaviour:
   Height: 32
   Depth: 16
   VoxelSize: 0.25
+  Seed: 0
   NoiseScale: 0.1
-  HeightMultiplier: 32
-  NoiseOffset: {x: 0.2, y: 0}
+  HeightMultiplier: 16
+  NoiseOffset: {x: 0, y: 0}

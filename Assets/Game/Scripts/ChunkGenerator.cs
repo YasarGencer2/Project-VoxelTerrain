@@ -13,7 +13,7 @@ public class ChunkGenerator
         return chunk;
     }
 
-    public void RenderChunk(Chunk chunk, Transform parent, Vector3 offset, Vector3 worldPos)
+    public void RenderChunk(Chunk chunk, Transform parent, Vector3 worldPos)
     {
 
         GameObject chunkGO = new GameObject("Chunk");

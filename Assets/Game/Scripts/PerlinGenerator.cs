@@ -3,9 +3,7 @@ using UnityEngine;
 public static class PerlinGenerator
 {
     public static Voxel[,,] GeneratePerlinTerrain(int width, int height, int depth, float noiseScale, float heightMultiplier, Vector2 offset)
-    {
-        Vector2 randomOffset = new Vector2(Random.Range(0f, 1000f), Random.Range(0f, 1000f));
-        offset += randomOffset;
+    { 
         Voxel[,,] voxels = new Voxel[width, height, depth];
         int minHeight = height / 4;
 

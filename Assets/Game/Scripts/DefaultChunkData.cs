@@ -7,6 +7,7 @@ public class DefaultChunkData : ScriptableObject
     public int Height = 16;
     public int Depth = 16;
     public float VoxelSize = .25f;
+    public int Seed = 0;
 
     public float NoiseScale = 0.1f;
     public float HeightMultiplier = 8f;
