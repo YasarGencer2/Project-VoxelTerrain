@@ -62,7 +62,8 @@ namespace VoxelTerrain
             Vector2Int chunkCoord = new Vector2Int(x, z);
             if (Chunks.TryGetValue(chunkCoord, out Chunk chunk))
             {
-                Destroy(chunk.GetMeshRender().gameObject);
+                // Destroy(chunk.GetMeshRender().gameObject);
+                chunk.GetMeshRender().gameObject.SetActive(false);
                 Chunks.Remove(chunkCoord);
             }
         }
