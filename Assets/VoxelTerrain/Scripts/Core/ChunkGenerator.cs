@@ -23,10 +23,12 @@ namespace VoxelTerrain
             chunkGO.transform.position = worldPos;
 
             MeshFilter mf = chunkGO.AddComponent<MeshFilter>();
+            MeshCollider mc = chunkGO.AddComponent<MeshCollider>();
             MeshRenderer mr = chunkGO.AddComponent<MeshRenderer>();
             mr.material = DataHelper.Instance.DefaultMaterial;
 
             chunk.SetMeshFilter(mf);
+            chunk.SetMeshCollider(mc);
             chunk.SetMeshRenderer(mr);
 
             var voxels = chunk.voxels;

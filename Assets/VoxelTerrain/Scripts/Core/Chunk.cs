@@ -15,6 +15,7 @@ namespace VoxelTerrain
         Mesh mesh;
         MeshFilter meshFilter;
         MeshRenderer meshRenderer;
+        MeshCollider meshCollider;
         List<Vector3> vertices = new();
         List<int> triangles = new();
         // List<Vector2> uvs = new();
@@ -28,6 +29,7 @@ namespace VoxelTerrain
 
         public void SetMeshFilter(MeshFilter mf) => meshFilter = mf;
         public void SetMeshRenderer(MeshRenderer mr) => meshRenderer = mr;
+        public void SetMeshCollider(MeshCollider mc) => meshCollider = mc;
         public MeshFilter GetMeshFilter() => meshFilter;
         public MeshRenderer GetMeshRender() => meshRenderer;
 
@@ -140,6 +142,7 @@ namespace VoxelTerrain
             mesh.SetColors(colors);
             mesh.RecalculateNormals();
             meshFilter.mesh = mesh;
+            meshCollider.sharedMesh = mesh;
 
             vertices.Clear();
             triangles.Clear();
