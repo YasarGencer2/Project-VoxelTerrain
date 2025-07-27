@@ -71,6 +71,15 @@ namespace VoxelTerrain
                 return voxels[x, y, z];
             return null;
         }
+        public Voxel GetVoxel(Vector3 worldPos)
+        {
+            var localPos = meshRenderer.transform.InverseTransformPoint(worldPos);
+            var size = DataHelper.Instance.VoxelChunkData.VoxelSize;
+            int x = Mathf.FloorToInt(localPos.x / size);
+            int y = Mathf.FloorToInt(localPos.y / size);
+            int z = Mathf.FloorToInt(localPos.z / size);
+            return GetVoxel(x, y, z);
+        }
 
         bool InBounds(int x, int y, int z)
         {
@@ -162,6 +171,12 @@ namespace VoxelTerrain
                 5 => Vector3Int.down,
                 _ => Vector3Int.zero
             };
+        }
+
+        public void BreakVoxel(Voxel voxel)
+        {
+            voxel.Type = VoxelType.Air;
+            UpdateMesh();
         }
     }
 
