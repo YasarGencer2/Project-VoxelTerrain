@@ -98,6 +98,8 @@ namespace VoxelTerrain
         {
             Vector3 basePos = (Vector3)voxel.Position * DataHelper.Instance.VoxelChunkData.VoxelSize;
             int vCount = vertices.Count;
+            voxel.MeshColorStartIndex = colors.Count;
+            voxel.VisibleFaceCount = 0;
 
             for (int face = 0; face < 6; face++)
             {
@@ -121,9 +123,46 @@ namespace VoxelTerrain
                     var color = DataHelper.Instance.VoxelObjectDataSet.GetColorByVoxelType(voxel.Type);
                     for (int i = 0; i < 4; i++)
                         colors.Add(color);
+                    voxel.VisibleFaceCount++;
                 }
             }
         }
+        public void RemoveVoxelMesh(Voxel voxel)
+        {
+            if (voxel.VisibleFaceCount == 0)
+                return;
+
+            int startIndex = voxel.MeshColorStartIndex;
+            int faceCount = voxel.VisibleFaceCount * 4;
+
+            // Remove vertices and triangles
+            vertices.RemoveRange(startIndex, faceCount);
+            for (int i = 0; i < triangles.Count; i++)
+            {
+                if (triangles[i] >= startIndex)
+                    triangles[i] -= faceCount;
+            }
+            triangles.RemoveRange(startIndex / 4 * 6, voxel.VisibleFaceCount * 6);
+
+            // Remove colors
+            colors.RemoveRange(startIndex, faceCount);
+
+            voxel.VisibleFaceCount = 0;
+        }
+        public void UpdateVoxelMesh(Voxel voxel, VoxelType newType)
+        {
+            if (voxel.Type == newType)
+                return;
+
+            voxel.Type = newType;
+
+            var newColor = DataHelper.Instance.VoxelObjectDataSet.GetColorByVoxelType(newType);
+
+            int startIndex = voxel.MeshColorStartIndex;
+            for (int i = 0; i < voxel.VisibleFaceCount * 4; i++)
+                colors[startIndex + i] = newColor;
+        }
+
         public bool IsVoxelSolid(Vector3Int pos)
         {
             if (InBounds(pos))
@@ -152,11 +191,6 @@ namespace VoxelTerrain
             mesh.RecalculateNormals();
             meshFilter.mesh = mesh;
             meshCollider.sharedMesh = mesh;
-
-            vertices.Clear();
-            triangles.Clear();
-            // uvs.Clear();
-            colors.Clear();
         }
 
         Vector3Int GetDirection(int face)
@@ -171,12 +205,6 @@ namespace VoxelTerrain
                 5 => Vector3Int.down,
                 _ => Vector3Int.zero
             };
-        }
-
-        public void BreakVoxel(Voxel voxel)
-        {
-            voxel.Type = VoxelType.Air;
-            UpdateMesh();
         }
     }
 

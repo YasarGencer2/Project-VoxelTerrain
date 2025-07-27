@@ -16,4 +16,4 @@ MonoBehaviour:
   ChunkCountY: 12
   GrassHeight: 1
   DirtHeight: 4
-  RenderDistance: 12
+  LoadDistance: 2

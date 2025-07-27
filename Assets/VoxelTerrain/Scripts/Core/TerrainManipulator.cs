@@ -1,4 +1,4 @@
-using UnityEngine; 
+using UnityEngine;
 namespace VoxelTerrain
 {
     public class TerrainManipulator : MonoBehaviour
@@ -18,9 +18,8 @@ namespace VoxelTerrain
             return null;
         }
         public void Break(Vector3 worldPos)
-        {  
-            var chunk = FindChunk(worldPos);
-            print($"Found {chunk}");
+        {
+            var chunk = FindChunk(worldPos); 
             if (chunk == null)
                 return;
             var voxel = chunk.GetVoxel(worldPos);
@@ -30,7 +29,8 @@ namespace VoxelTerrain
         {
             if (voxel == null || !voxel.IsSolid)
                 return;
-            chunk.BreakVoxel(voxel);
+            chunk.RemoveVoxelMesh(voxel);
+            chunk.UpdateMesh();
         }
     }
 }

@@ -10,6 +10,9 @@ namespace VoxelTerrain
         public Vector3[] Vertices { get; private set; }
         public bool IsSolid => Type != VoxelType.Air;
 
+        public int MeshColorStartIndex { get; internal set; }
+        public int VisibleFaceCount { get; internal set; }
+
         public Voxel(Vector3Int position, VoxelType type = VoxelType.Air)
         {
             Position = position;
