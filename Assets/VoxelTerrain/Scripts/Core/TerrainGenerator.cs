@@ -55,7 +55,7 @@ namespace VoxelTerrain
             Chunk chunk = Generator.GeneratePerlinChunk(offset);
             chunk.chunkCoord = chunkCoord;
             Chunks.Add(chunkCoord, chunk);
-            Generator.RenderChunk(chunk, transform, worldPos);
+            StartCoroutine(Generator.RenderChunk(chunk, transform, worldPos));
         }
         public void UnloadChunk(int x, int z)
         {

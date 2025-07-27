@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 namespace VoxelTerrain
 {
@@ -14,10 +16,8 @@ namespace VoxelTerrain
             chunk.voxels = PerlinGenerator.GeneratePerlinTerrain(chunkData.Width, chunkData.Height, chunkData.Depth, chunkData.NoiseScale, chunkData.HeightMultiplier, offset);
             return chunk;
         }
-
-        public void RenderChunk(Chunk chunk, Transform parent, Vector3 worldPos)
+        public IEnumerator RenderChunk(Chunk chunk, Transform parent, Vector3 worldPos)
         {
-
             GameObject chunkGO = new GameObject("Chunk");
             chunkGO.transform.parent = parent;
             chunkGO.transform.position = worldPos;
@@ -29,17 +29,21 @@ namespace VoxelTerrain
             chunk.SetMeshFilter(mf);
             chunk.SetMeshRenderer(mr);
 
-            for (int x = 0; x < chunk.width; x++)
-                for (int y = 0; y < chunk.height; y++)
-                    for (int z = 0; z < chunk.depth; z++)
-                    {
-                        Voxel voxel = chunk.GetVoxel(x, y, z);
-                        if (voxel != null && voxel.IsSolid)
-                            chunk.AddVoxelMesh(voxel);
-                    }
+            var voxels = chunk.voxels;
+            int count = 0;
+            foreach (var voxel in voxels)
+            {
+                if (voxel != null && voxel.IsSolid)
+                    chunk.AddVoxelMesh(voxel);
+
+                count++;
+                if (count % 500 == 0)
+                    yield return null;
+            }
 
             chunk.UpdateMesh();
         }
+
         public Vector2Int GetNeighborChunkCoord(ref Vector3Int localPos, Vector2Int currentChunkCoord)
         {
             int chunkWidth = chunkData.Width;

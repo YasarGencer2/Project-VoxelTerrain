@@ -17,7 +17,7 @@ namespace VoxelTerrain
         MeshRenderer meshRenderer;
         List<Vector3> vertices = new();
         List<int> triangles = new();
-        List<Vector2> uvs = new();
+        // List<Vector2> uvs = new();
 
         List<Color> colors = new List<Color>();
 
@@ -131,18 +131,19 @@ namespace VoxelTerrain
 
         public void UpdateMesh()
         {
-            mesh = new Mesh();
-            mesh.vertices = vertices.ToArray();
-            mesh.triangles = triangles.ToArray();
-            mesh.colors = colors.ToArray();
-            mesh.RecalculateNormals();
+            if (mesh == null)
+                mesh = new Mesh();
+            else
+                mesh.Clear();
+            mesh.SetVertices(vertices);
+            mesh.SetTriangles(triangles, 0);
+            mesh.SetColors(colors);
             mesh.RecalculateNormals();
             meshFilter.mesh = mesh;
 
-
             vertices.Clear();
             triangles.Clear();
-            uvs.Clear();
+            // uvs.Clear();
             colors.Clear();
         }
 

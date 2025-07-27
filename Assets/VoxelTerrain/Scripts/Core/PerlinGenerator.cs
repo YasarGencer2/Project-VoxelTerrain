@@ -15,7 +15,7 @@ namespace VoxelTerrain
                     float zCoord = (z + offset.y) * noiseScale;
                     float noise = Mathf.PerlinNoise(xCoord, zCoord);
                     int columnHeight = Mathf.FloorToInt(noise * heightMultiplier);
-                    columnHeight = Mathf.Clamp(columnHeight, minHeight, height);
+                    // columnHeight = Mathf.Clamp(columnHeight, minHeight, height);
 
                     for (int y = 0; y < height; y++)
                     {
@@ -36,7 +36,5 @@ namespace VoxelTerrain
 
             return voxels;
         }
-
-
     }
 }
